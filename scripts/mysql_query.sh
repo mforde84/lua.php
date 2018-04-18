@@ -31,7 +31,7 @@ for f in $(find apps -type f -name "*lua"); do
  export software_compiler_version=$(echo $software_compiler | sed 's/^.*-//g' | sed 's/\./_/g')
  export software_concant=$(echo $software_name"_"$software_version"_"$software_compiler)
  export software_blob=$(sed -n "/Product/,/]])/p" $f | head -n-1 | sed "s/'/_/g" | sed 's/\"/_/g' | sed 's/\`/_/g');
- echo "INSERT INTO software (name, version, compiler, compilerbase, compilerversion, category,description,url, concant, notes) VALUES ('$software_name', '$software_version', '$software_compiler', '$software_compiler_base', '$software_compiler_version', '$software_category', '$software_description', '$software_url', '$software_concant', '$software_blob');" | mysql -uroot -p1 lua;
+ echo "INSERT INTO software (name, version, compiler, compilerbase, compilerversion, category,description,url, concant, notes) VALUES ('$software_name', '$software_version', '$software_compiler', '$software_compiler_base', '$software_compiler_version', '$software_category', '$software_description', '$software_url', '$software_concant', '$software_blob');" | mysql ##########3 lua;
 done
 mysql ###################3 <<EOF
 USE lua;
