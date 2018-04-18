@@ -33,12 +33,7 @@
 					<button type="submit" style="width: 92%;"><i class="fa fa-search"></i> Query Database</button><br><br>
 					<input type="text" placeholder="Search..." style="width:90%;" name="search" value="<?php echo $_POST['search'];?>">
 					<?php	
-						//DB CONNECTION
-						//$servername = "localhost";
-						//$username = "root";
-						//$password = "1";
-						//$dbname = "lua";
-						$conn = new mysqli("localhost", "root", "1", "lua");
+						$conn = new mysqli("localhost", ######################,################, "lua");
 						if ($conn->connect_error) {
 							die("Connection failed: " . $conn->connect_error);
 						}
@@ -132,7 +127,7 @@
 								$built_query .= $compiler_query.' ORDER BY name,version,compiler ASC;';
 								//echo "<br><br>".$built_query."<br><br>";			
 							
-								$conn = new mysqli("localhost", "root", "1", "lua");
+								$conn = new mysqli("localhost", ######################,################, "lua");
 								if ($conn->connect_error) {
 									die("Connection failed: " . $conn->connect_error);
 								}
