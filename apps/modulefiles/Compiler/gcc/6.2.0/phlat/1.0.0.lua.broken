@@ -1,0 +1,87 @@
+-- -*- lua -*-
+
+
+------------------------------------------------------------------------
+-- phlat 1.0.0
+-- Martin Forde 
+------------------------------------------------------------------------
+
+
+-- Local Variables
+local pkgName      = myModuleName()
+local version      = myModuleVersion()
+local pkgNameVer   = pathJoin(pkgName,version)
+local base         = "/apps/software"
+local compiler     = "gcc-6.2.0"
+local installDir   = pathJoin(base,compiler,pkgNameVer)
+local mdir         = pathJoin("MPI",pkgNameVer)
+
+
+-- Whatis Message
+whatis("Name:        phlat")
+whatis("Version:     1.0.0")
+whatis("Category:    HLA typing")
+whatis("Description: phlat-release is an implementation of PHLAT algorithm for Linux environment")
+whatis("URL:         $PHLAT_PATH/README")
+
+
+--Help Message
+help(
+[[
+
+Purpose
+-------
+This module file defines the system paths and environment variables
+needed to use phlat 1.0.0
+
+
+Product Description
+-------------------
+phlat-release is an implementation of PHLAT algorithm for Linux environment. 
+
+
+Usage
+-----
+When this module is loaded, the environmental variable PHLAT_PATH is available.
+
+Example:
+
+datadir=${PHLAT_PATH}"/example"		# path for data directory with reads
+indexdir=${PHLAT_PATH}"/b2folder"		# path for bowtie2 indices
+rsdir=${PHLAT_PATH}"/results"		# path for results
+b2url="$(which bowtie2)" 			# bowtie2 path
+tag="example"				# staging name for reads
+fastq1=${tag}"_1.fastq.gz"		# paired end read locations
+fastq2=${tag}"_2.fastq.gz"		# -------------------------
+mkdir $rsdir				# create results directory
+
+python -O ${PHLAT_PATH}/dist/PHLAT.py -1 ${datadir}/${fastq1} / 
+	-2 ${datadir}/${fastq2} -index $indexdir -b2url $b2url -tag $tag /
+	-e $PHLAT_PATH -o $rsdir
+
+
+Dependencies
+------------
+gcc/6.2.0
+
+
+Documentation
+-------------
+
+Online documentation is available at:
+
+$ cat ${PHLAT_PATH}/README
+$ cat ${PHLAT_PATH}/example.sh
+
+]])
+
+-- Prerequisites
+load("python/2.7.13")
+load("bowtie2/2.3.2")
+
+
+-- PHLAT_PATH Environment Variable
+setenv("PHLAT_PATH", installDir)
+
+-- Executables
+prepend_path('PATH', pathJoin(installDir,"dist"))
